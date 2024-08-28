@@ -1,7 +1,7 @@
 import css from "./MovieDetailsPage.module.css";
 import clsx from "clsx";
 import { useEffect, useState, Suspense } from "react";
-import { useParams, Outlet, NavLink, useLocation } from "react-router-dom";
+import { useParams, Outlet, NavLink, useLocation, useNavigate } from "react-router-dom";
 
 import Loader from "../../components/Loader/Loader";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
@@ -13,6 +13,9 @@ const MovieDetailsPage = () => {
   const [movieDetails, setMovieDetails] = useState(null);
   const { movieId } = useParams();
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const backLinkHref = location.state?.from ?? "/";
 
   function buildLinkClass({ isActive }) {
     return clsx(css.infoLink, {
@@ -39,6 +42,12 @@ const MovieDetailsPage = () => {
 
   return (
     <>
+      <button
+        className={css.backButton}
+        onClick={() => navigate(backLinkHref)}
+      >
+        Повернутися назад
+      </button>
       {movieDetails !== null && (
         <div className={css.wrapper}>
           <div>
@@ -85,4 +94,5 @@ const MovieDetailsPage = () => {
     </>
   );
 };
+
 export default MovieDetailsPage;
