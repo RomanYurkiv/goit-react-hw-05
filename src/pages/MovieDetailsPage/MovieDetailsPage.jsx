@@ -38,18 +38,15 @@ const MovieDetailsPage = () => {
     }
 
     fetchMovieDetails();
-  }, [movieId, setLoading, setError, location]);
+  }, [movieId]);
 
   return (
     <>
-      <button
-        className={css.backButton}
-        onClick={() => navigate(backLinkHref)}
-      >
-        Повернутися назад
-      </button>
       {movieDetails !== null && (
         <div className={css.wrapper}>
+          <button className={css.backButton} onClick={() => navigate(backLinkHref)}>
+            Назад
+          </button>
           <div>
             <img
               src={`https://image.tmdb.org/t/p/w500${movieDetails.poster_path}`}
@@ -69,12 +66,12 @@ const MovieDetailsPage = () => {
               <h3>Movie description</h3>
               <ul>
                 <li>
-                  <NavLink className={buildLinkClass} to="cast">
+                  <NavLink className={buildLinkClass} to="cast" state={{ from: backLinkHref }}>
                     Cast
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink className={buildLinkClass} to="reviews">
+                  <NavLink className={buildLinkClass} to="reviews" state={{ from: backLinkHref }}>
                     Reviews
                   </NavLink>
                 </li>
